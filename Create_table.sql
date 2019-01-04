@@ -12,7 +12,8 @@ summ int,
 procent int,
 day_back date,
 data_issuance date,
-id_type int
+id_type int,
+id_client int
 primary key (id)
  )
 
@@ -29,3 +30,5 @@ id int NOT NULL,
 type_credit varchar(40)
 primary key (id)
  )
+
+
