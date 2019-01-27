@@ -23,7 +23,7 @@ namespace База_банка
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e) // Добавление нового клиента
         {
 
             using (SqlConnection connection = new SqlConnection(AddToBase.dataInfo))
@@ -49,6 +49,7 @@ namespace База_банка
 
 
             }
+            
         }
 
         private void label11_Click(object sender, EventArgs e)
@@ -97,6 +98,32 @@ namespace База_банка
                     }
                     reader.Close();
                 }
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e) //Добавление нового кредита
+        {
+            using (SqlConnection connection = new SqlConnection(AddToBase.dataInfo))
+            {
+                connection.Open();
+                String sql = "EXEC new_credit '" + CreditTipBox.Text + "'";
+
+                SqlCommand command = new SqlCommand(sql, connection);
+                using (command)
+                {
+
+                    int i = command.ExecuteNonQuery();
+
+                    if (i > 0)
+                    {
+                        MessageBox.Show
+                            ("Новый кредит успешно добавлен");
+                    }
+
+                    connection.Close();
+                }
+
+
             }
         }
     }
