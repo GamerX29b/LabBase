@@ -28,12 +28,13 @@ DROP TABLE issuance_of_credit;
 GO
  CREATE TABLE issuance_of_credit (
 id int NOT NULL,
-summ int,
+summ money,
 procent int,
 day_back date,
 data_issuance date,
 id_type int,
-id_client int
+id_client int,
+remainder_of_credit money -- остаток по кредиту
 primary key (id)
 FOREIGN KEY (id_client) REFERENCES Client (id) 
 ON UPDATE CASCADE ON DELETE CASCADE,
@@ -46,7 +47,7 @@ DROP TABLE repayment;
 GO
  CREATE TABLE repayment (
 id int NOT NULL,
-summ int,
+summ money,
 date_rep date,
 id_credit int
 primary key (id)
