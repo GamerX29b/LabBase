@@ -25,10 +25,29 @@ namespace База_банка
 
         private void button1_Click(object sender, EventArgs e)
         {
+
             using (SqlConnection connection = new SqlConnection(AddToBase.dataInfo))
             {
                 connection.Open();
-                String sql = "USE Bank GO EXEC new_client 'Маркса 1', 'Ирвин Арон Яковлевич', '878865663' GO";
+                String sql = "EXEC new_client '"+ textAdress.Text + 
+                    "', '"+ ContactData.Text + "', '"+ TelephoneBox.Text + "'";
+
+                SqlCommand command = new SqlCommand(sql, connection);
+                using (command)
+                {
+                   
+                    int i = command.ExecuteNonQuery();
+
+                    if (i > 0)
+                    {
+                        MessageBox.Show
+                            ("Клиент успешно добавлен");
+                    }
+
+                    connection.Close();
+                }
+
+
             }
         }
 
@@ -40,6 +59,45 @@ namespace База_банка
         private void label12_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void bindingSource1_CurrentChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e) //При загрузке
+        {
+            using (SqlConnection connection = new SqlConnection(AddToBase.dataInfo)) //Добавление лицевых счетов
+            {
+                String sql = "SELECT id FROM client";
+                SqlCommand command = new SqlCommand(sql, connection);
+                using (command)
+                {
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        LSComboBox.Items.Add(Convert.ToString(reader.GetSqlInt32(0))); 
+                    }
+                    reader.Close();
+                }
+            }
+            using (SqlConnection connection = new SqlConnection(AddToBase.dataInfo))//Добавление типов кредитов
+            {
+                String sql = "SELECT type_credit FROM credit_type";
+                SqlCommand command = new SqlCommand(sql, connection);
+                using (command)
+                {
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        CreditComboBox.Items.Add(reader.GetString(0));
+                    }
+                    reader.Close();
+                }
+            }
         }
     }
 }

@@ -30,9 +30,9 @@
         {
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.ContactData = new System.Windows.Forms.TextBox();
+            this.textAdress = new System.Windows.Forms.TextBox();
+            this.TelephoneBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -41,10 +41,10 @@
             this.label5 = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.LSComboBox = new System.Windows.Forms.ComboBox();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.CreditComboBox = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -91,26 +91,26 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Контактные данные";
             // 
-            // textBox1
+            // ContactData
             // 
-            this.textBox1.Location = new System.Drawing.Point(40, 25);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 2;
+            this.ContactData.Location = new System.Drawing.Point(40, 25);
+            this.ContactData.Name = "ContactData";
+            this.ContactData.Size = new System.Drawing.Size(100, 20);
+            this.ContactData.TabIndex = 2;
             // 
-            // textBox2
+            // textAdress
             // 
-            this.textBox2.Location = new System.Drawing.Point(40, 64);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 3;
+            this.textAdress.Location = new System.Drawing.Point(40, 64);
+            this.textAdress.Name = "textAdress";
+            this.textAdress.Size = new System.Drawing.Size(100, 20);
+            this.textAdress.TabIndex = 3;
             // 
-            // textBox3
+            // TelephoneBox
             // 
-            this.textBox3.Location = new System.Drawing.Point(40, 102);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 20);
-            this.textBox3.TabIndex = 4;
+            this.TelephoneBox.Location = new System.Drawing.Point(40, 102);
+            this.TelephoneBox.Name = "TelephoneBox";
+            this.TelephoneBox.Size = new System.Drawing.Size(100, 20);
+            this.TelephoneBox.TabIndex = 4;
             // 
             // label2
             // 
@@ -179,13 +179,13 @@
             this.numericUpDown2.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown2.TabIndex = 12;
             // 
-            // comboBox1
+            // LSComboBox
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(236, 133);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 13;
+            this.LSComboBox.FormattingEnabled = true;
+            this.LSComboBox.Location = new System.Drawing.Point(236, 133);
+            this.LSComboBox.Name = "LSComboBox";
+            this.LSComboBox.Size = new System.Drawing.Size(121, 21);
+            this.LSComboBox.TabIndex = 13;
             // 
             // dateTimePicker1
             // 
@@ -201,13 +201,13 @@
             this.dateTimePicker2.Size = new System.Drawing.Size(138, 20);
             this.dateTimePicker2.TabIndex = 15;
             // 
-            // comboBox2
+            // CreditComboBox
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(381, 133);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 21);
-            this.comboBox2.TabIndex = 16;
+            this.CreditComboBox.FormattingEnabled = true;
+            this.CreditComboBox.Location = new System.Drawing.Point(381, 133);
+            this.CreditComboBox.Name = "CreditComboBox";
+            this.CreditComboBox.Size = new System.Drawing.Size(121, 21);
+            this.CreditComboBox.TabIndex = 16;
             // 
             // label6
             // 
@@ -403,10 +403,10 @@
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.comboBox2);
+            this.Controls.Add(this.CreditComboBox);
             this.Controls.Add(this.dateTimePicker2);
             this.Controls.Add(this.dateTimePicker1);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.LSComboBox);
             this.Controls.Add(this.numericUpDown2);
             this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.label5);
@@ -415,13 +415,14 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.TelephoneBox);
+            this.Controls.Add(this.textAdress);
+            this.Controls.Add(this.ContactData);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
             this.Name = "Form1";
             this.Text = "Банк";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
@@ -436,9 +437,9 @@
 
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox ContactData;
+        private System.Windows.Forms.TextBox textAdress;
+        private System.Windows.Forms.TextBox TelephoneBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
@@ -447,10 +448,10 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.NumericUpDown numericUpDown2;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox LSComboBox;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox CreditComboBox;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
