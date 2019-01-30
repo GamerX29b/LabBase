@@ -62,11 +62,6 @@ namespace База_банка
 
         }
 
-        private void bindingSource1_CurrentChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void Form1_Load(object sender, EventArgs e) //При загрузке
         {
             using (SqlConnection connection = new SqlConnection(AddToBase.dataInfo)) //Добавление лицевых счетов
@@ -125,6 +120,30 @@ namespace База_банка
 
 
             }
+        }
+
+        private void LSComboBox_SelectedIndexChanged(object sender, EventArgs e) //Показать ФИО введённого ID
+        {
+            using (SqlConnection connection = new SqlConnection(AddToBase.dataInfo))
+            {
+                connection.Open();
+                String sql = "USE Bank SELECT contact FROM client WHERE id = " + LSComboBox.Text;
+
+                SqlCommand command = new SqlCommand(sql, connection);
+                using (command)
+                {
+                                                //ExecuteScalar выбирает единственное значение
+                    ContactDataLabel.Text = Convert.ToString(command.ExecuteScalar()); //Выбираем единственное 
+                    connection.Close();
+                }
+
+
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

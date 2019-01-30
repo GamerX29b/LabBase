@@ -65,6 +65,7 @@
             this.ClientName = new System.Windows.Forms.Label();
             this.ClientTel = new System.Windows.Forms.Label();
             this.dataSet12 = new База_банка.DataSet1();
+            this.ContactDataLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
@@ -187,6 +188,7 @@
             this.LSComboBox.Name = "LSComboBox";
             this.LSComboBox.Size = new System.Drawing.Size(121, 21);
             this.LSComboBox.TabIndex = 13;
+            this.LSComboBox.SelectedIndexChanged += new System.EventHandler(this.LSComboBox_SelectedIndexChanged);
             // 
             // dateTimePicker1
             // 
@@ -277,12 +279,13 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(236, 175);
+            this.button3.Location = new System.Drawing.Point(236, 192);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 24;
             this.button3.Text = "Новый кредит";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button4
             // 
@@ -380,11 +383,20 @@
             this.dataSet12.DataSetName = "DataSet1";
             this.dataSet12.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
+            // ContactDataLabel
+            // 
+            this.ContactDataLabel.AutoSize = true;
+            this.ContactDataLabel.Location = new System.Drawing.Point(237, 165);
+            this.ContactDataLabel.Name = "ContactDataLabel";
+            this.ContactDataLabel.Size = new System.Drawing.Size(0, 13);
+            this.ContactDataLabel.TabIndex = 36;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(837, 376);
+            this.Controls.Add(this.ContactDataLabel);
             this.Controls.Add(this.ClientTel);
             this.Controls.Add(this.ClientName);
             this.Controls.Add(this.label17);
@@ -473,6 +485,7 @@
         private System.Windows.Forms.Label ClientName;
         private System.Windows.Forms.Label ClientTel;
         private DataSet1 dataSet12;
+        private System.Windows.Forms.Label ContactDataLabel;
     }
 }
 
