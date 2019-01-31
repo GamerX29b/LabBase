@@ -56,7 +56,6 @@
             this.button4 = new System.Windows.Forms.Button();
             this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
             this.label13 = new System.Windows.Forms.Label();
-            this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
             this.label14 = new System.Windows.Forms.Label();
             this.dateTimePicker3 = new System.Windows.Forms.DateTimePicker();
             this.label15 = new System.Windows.Forms.Label();
@@ -66,10 +65,10 @@
             this.ClientTel = new System.Windows.Forms.Label();
             this.dataSet12 = new База_банка.DataSet1();
             this.ContactDataLabel = new System.Windows.Forms.Label();
+            this.LScomboBox2 = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet12)).BeginInit();
             this.SuspendLayout();
             // 
@@ -312,13 +311,6 @@
             this.label13.TabIndex = 27;
             this.label13.Text = "Сумма выплаты";
             // 
-            // numericUpDown4
-            // 
-            this.numericUpDown4.Location = new System.Drawing.Point(609, 37);
-            this.numericUpDown4.Name = "numericUpDown4";
-            this.numericUpDown4.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown4.TabIndex = 28;
-            // 
             // label14
             // 
             this.label14.AutoSize = true;
@@ -391,11 +383,21 @@
             this.ContactDataLabel.Size = new System.Drawing.Size(0, 13);
             this.ContactDataLabel.TabIndex = 36;
             // 
+            // LScomboBox2
+            // 
+            this.LScomboBox2.FormattingEnabled = true;
+            this.LScomboBox2.Location = new System.Drawing.Point(609, 40);
+            this.LScomboBox2.Name = "LScomboBox2";
+            this.LScomboBox2.Size = new System.Drawing.Size(121, 21);
+            this.LScomboBox2.TabIndex = 37;
+            this.LScomboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(837, 376);
+            this.Controls.Add(this.LScomboBox2);
             this.Controls.Add(this.ContactDataLabel);
             this.Controls.Add(this.ClientTel);
             this.Controls.Add(this.ClientName);
@@ -404,7 +406,6 @@
             this.Controls.Add(this.label15);
             this.Controls.Add(this.dateTimePicker3);
             this.Controls.Add(this.label14);
-            this.Controls.Add(this.numericUpDown4);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.numericUpDown3);
             this.Controls.Add(this.button4);
@@ -439,7 +440,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet12)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -476,7 +476,6 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.NumericUpDown numericUpDown3;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.NumericUpDown numericUpDown4;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.DateTimePicker dateTimePicker3;
         private System.Windows.Forms.Label label15;
@@ -486,6 +485,7 @@
         private System.Windows.Forms.Label ClientTel;
         private DataSet1 dataSet12;
         private System.Windows.Forms.Label ContactDataLabel;
+        private System.Windows.Forms.ComboBox LScomboBox2;
     }
 }
 
