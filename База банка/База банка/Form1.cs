@@ -41,8 +41,20 @@ namespace База_банка
                             ("Клиент успешно добавлен");
                     }
                     connection.Close();
+
+                    connection.Open();
+                    sql = "USE Bank SELECT MAX(id) FROM client ";
+
+                    command = new SqlCommand(sql, connection);
+                    using (command)
+                    {
+                        //Показываем айдишник нового клиента
+                        LsNewClient.Text = Convert.ToString(command.ExecuteScalar()); //Выбираем единственное 
+                        connection.Close();
+                    }
                 }
             }
+            upload();
         }
 
         private void label11_Click(object sender, EventArgs e)
@@ -57,6 +69,173 @@ namespace База_банка
 
         private void Form1_Load(object sender, EventArgs e) //При загрузке формы
         {
+            upload();
+        }
+        //Добавление нового вида кредита ------------------------------
+        private void button2_Click(object sender, EventArgs e) 
+        {
+            using (SqlConnection connection = new SqlConnection(AddToBase.dataInfo))
+            {
+                connection.Open();
+                String sql = "EXEC new_client_type '" + CreditTipBox.Text + "'";
+
+                SqlCommand command = new SqlCommand(sql, connection);
+                using (command)
+                {
+                    int i = command.ExecuteNonQuery();
+                    if (i > 0)
+                    {
+                        MessageBox.Show
+                            ("Новый вид кредита успешно добавлен");
+                    }
+                    connection.Close();
+                }
+            }
+            upload();
+        }
+
+        private void LSComboBox_SelectedIndexChanged(object sender, EventArgs e) //Показать ФИО введённого ID
+        {
+            using (SqlConnection connection = new SqlConnection(AddToBase.dataInfo))
+            {
+                connection.Open();
+                String sql = "USE Bank SELECT contact FROM client WHERE id = " + LSComboBox.Text;
+
+                SqlCommand command = new SqlCommand(sql, connection);
+                using (command)
+                {
+                                                //ExecuteScalar выбирает единственное значение
+                    ContactDataLabel.Text = Convert.ToString(command.ExecuteScalar()); //Выбираем единственное 
+                    connection.Close();
+                }
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e) //Новый кредит
+        {
+            if(LSComboBox.Text == null | 
+                CreditComboBox.Text == null | 
+                SummCreditUpDown1.Value == 0)              //Проверять не пустые ли значения
+            {
+                MessageBox.Show
+                           ("Заполнены не все поля");
+            } else { 
+            using (SqlConnection connection = new SqlConnection(AddToBase.dataInfo))
+            {
+                connection.Open();
+                int x = CreditComboBox.SelectionStart + 1;
+                String sql = "EXEC new_credit '" + SummCreditUpDown1.Text + "','"
+                    + ProcentUpDown2.Text + "','" + dateTimeBack.Value + "','"
+                    + dateTimeIssuance.Value + "','" + x + "','"
+                    + LSComboBox.Text + "'";
+                SqlCommand command = new SqlCommand(sql, connection);
+                using (command)
+                {
+                    int i = command.ExecuteNonQuery();
+
+                    if (i > 0)
+                    {
+                        MessageBox.Show
+                            ("Новый кредит успешно добавлен");
+                    }
+                    connection.Close();
+                }
+            }
+            }
+            upload();
+        }//-------Это был блок добавления кредита-------^^^^^^^
+
+        //-------Это блок показывающий данные о пользователе при выборе лицевого счёта в блоке выплаты-------VVVV
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {  //Надо показать остаток по кредиту, фио и телефон
+            int id_client = 0;
+            using (SqlConnection connection = new SqlConnection(AddToBase.dataInfo))
+            {
+                connection.Open(); //Получаем остаток по кредиту
+                String sql = "USE Bank SELECT remainder_of_credit FROM issuance_of_credit WHERE id = " + LScomboBox2.Text;
+
+                SqlCommand command = new SqlCommand(sql, connection);
+                using (command)
+                {
+
+                    remainder.Text = Convert.ToString(command.ExecuteScalar()); //Выбираем единственное 
+                    connection.Close();
+                }
+
+                connection.Open(); //Получаем айди пользователя для идентификации
+                sql = "USE Bank SELECT id_client FROM issuance_of_credit WHERE id = " + LScomboBox2.Text;
+
+                command = new SqlCommand(sql, connection);
+                using (command)
+                {
+                 
+                    id_client = Convert.ToInt16(command.ExecuteScalar()); //Выбираем единственное 
+                    connection.Close();
+                }
+                connection.Open();
+                sql = "USE Bank SELECT contact FROM client WHERE id = " + id_client;
+
+                command = new SqlCommand(sql, connection);
+                using (command)
+                {
+                    ClientName.Text = Convert.ToString(command.ExecuteScalar()); //Выбираем единственное 
+                    connection.Close();
+                }
+
+                connection.Open();
+                sql = "USE Bank SELECT telephone FROM client WHERE id = " + id_client;
+
+                command = new SqlCommand(sql, connection);
+                using (command)
+                {
+                    //ExecuteScalar выбирает единственное значение
+                    ClientTel.Text = Convert.ToString(command.ExecuteScalar()); //Выбираем единственное 
+                    connection.Close();
+                }
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e) //--Блок выплаты кредита
+        {
+            using (SqlConnection connection = new SqlConnection(AddToBase.dataInfo))
+            {
+                connection.Open();
+                int x = CreditComboBox.SelectionStart + 1;
+                String sql = "EXEC new_repayment '" + SumUpDown3.Text  + "','"
+                    + dateTimeRepa.Value + "','" + LScomboBox2.Text + "'";
+
+                SqlCommand command = new SqlCommand(sql, connection);
+                using (command)
+                {
+
+                    int i = command.ExecuteNonQuery();
+
+                    if (i > 0)
+                    {
+                        MessageBox.Show
+                            ("Новая выплата");
+                    }
+
+                    connection.Close();  //Мы выплатили
+
+                    connection.Open(); //Получаем остаток по кредиту
+                    sql = "USE Bank SELECT remainder_of_credit FROM issuance_of_credit WHERE id = " + LScomboBox2.Text;
+
+                    command = new SqlCommand(sql, connection);
+                    using (command)
+                    {
+
+                        remainder.Text = Convert.ToString(command.ExecuteScalar()); //Выбираем единственное 
+                        connection.Close();
+                    }
+
+                }
+            }
+            upload();
+        }
+
+        void upload() //Обновление всех пунктов формы -----------------------------------------
+        {
             using (SqlConnection connection = new SqlConnection(AddToBase.dataInfo)) //Добавление лицевых счетов в форму нового кредита
             {
                 String sql = "SELECT id FROM client";
@@ -67,14 +246,14 @@ namespace База_банка
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        LSComboBox.Items.Add(Convert.ToString(reader.GetSqlInt32(0))); 
+                        LSComboBox.Items.Add(Convert.ToString(reader.GetSqlInt32(0)));
                     }
                     reader.Close();
                 }
             }
             using (SqlConnection connection = new SqlConnection(AddToBase.dataInfo)) //Добавление лицевых счетов в форму погашения кредита
             {
-                String sql = "SELECT id FROM client";
+                String sql = "SELECT id FROM issuance_of_credit";
                 SqlCommand command = new SqlCommand(sql, connection);
                 using (command)
                 {
@@ -101,88 +280,6 @@ namespace База_банка
                     }
                     reader.Close();
                 }
-            }
-        }
-        //Добавление нового кредита ------------------------------
-        private void button2_Click(object sender, EventArgs e) 
-        {
-            using (SqlConnection connection = new SqlConnection(AddToBase.dataInfo))
-            {
-                connection.Open();
-                String sql = "EXEC new_credit '" + CreditTipBox.Text + "'";
-
-                SqlCommand command = new SqlCommand(sql, connection);
-                using (command)
-                {
-
-                    int i = command.ExecuteNonQuery();
-
-                    if (i > 0)
-                    {
-                        MessageBox.Show
-                            ("Новый кредит успешно добавлен");
-                    }
-
-                    connection.Close();
-                }
-
-
-            }
-        }
-
-        private void LSComboBox_SelectedIndexChanged(object sender, EventArgs e) //Показать ФИО введённого ID
-        {
-            using (SqlConnection connection = new SqlConnection(AddToBase.dataInfo))
-            {
-                connection.Open();
-                String sql = "USE Bank SELECT contact FROM client WHERE id = " + LSComboBox.Text;
-
-                SqlCommand command = new SqlCommand(sql, connection);
-                using (command)
-                {
-                                                //ExecuteScalar выбирает единственное значение
-                    ContactDataLabel.Text = Convert.ToString(command.ExecuteScalar()); //Выбираем единственное 
-                    connection.Close();
-                }
-            }
-        }
-
-        private void button3_Click(object sender, EventArgs e) //Новый кредит
-        {
-            if(LSComboBox.Text != null | 
-                CreditComboBox.Text != null | 
-                numericUpDown1.Value == 0)              //Проверять не пустые ли значения
-            {
-                MessageBox.Show
-                           ("Заполнены не все поля");
-            }
-        }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            using (SqlConnection connection = new SqlConnection(AddToBase.dataInfo))
-            {
-                connection.Open();
-                String sql = "USE Bank SELECT contact FROM client WHERE id = " + LScomboBox2.Text;
-
-                SqlCommand command = new SqlCommand(sql, connection);
-                using (command)
-                {
-                    //ExecuteScalar выбирает единственное значение
-                    ClientName.Text = Convert.ToString(command.ExecuteScalar()); //Выбираем единственное 
-                    connection.Close();
-                }
-                connection.Open();
-                sql = "USE Bank SELECT telephone FROM client WHERE id = " + LScomboBox2.Text;
-
-                command = new SqlCommand(sql, connection);
-                using (command)
-                {
-                    //ExecuteScalar выбирает единственное значение
-                    ClientTel.Text = Convert.ToString(command.ExecuteScalar()); //Выбираем единственное 
-                    connection.Close();
-                }
-
             }
         }
     }
