@@ -113,7 +113,9 @@ namespace База_банка
 
         private void button3_Click(object sender, EventArgs e) //Новый кредит
         {
-            if(LSComboBox.Text == null | 
+            int i = 0;
+            String S = " ";
+            if (LSComboBox.Text == null | 
                 CreditComboBox.Text == null | 
                 SummCreditUpDown1.Value == 0)              //Проверять не пустые ли значения
             {
@@ -131,16 +133,24 @@ namespace База_банка
                 SqlCommand command = new SqlCommand(sql, connection);
                 using (command)
                 {
-                    int i = command.ExecuteNonQuery();
-
+                        i = command.ExecuteNonQuery();   
+                    connection.Close();
+                }
+                    connection.Open();
+                    sql = "USE Bank SELECT MAX(id) FROM issuance_of_credit ";
+                    command = new SqlCommand(sql, connection);
+                    using (command)
+                    {
+                        //Показываем айдишник нового клиента
+                       S = Convert.ToString(command.ExecuteScalar()); //Выбираем единственное 
+                        connection.Close();
+                    }
                     if (i > 0)
                     {
                         MessageBox.Show
-                            ("Новый кредит успешно добавлен");
+                            ("Новый кредит успешно выдан, айди нового кредита: "+ S);
                     }
-                    connection.Close();
                 }
-            }
             }
             upload();
         }//-------Это был блок добавления кредита-------^^^^^^^
@@ -238,6 +248,7 @@ namespace База_банка
         {
             using (SqlConnection connection = new SqlConnection(AddToBase.dataInfo)) //Добавление лицевых счетов в форму нового кредита
             {
+                LSComboBox.Items.Clear();
                 String sql = "SELECT id FROM client";
                 SqlCommand command = new SqlCommand(sql, connection);
                 using (command)
@@ -246,6 +257,7 @@ namespace База_банка
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
+                        
                         LSComboBox.Items.Add(Convert.ToString(reader.GetSqlInt32(0)));
                     }
                     reader.Close();
@@ -253,6 +265,7 @@ namespace База_банка
             }
             using (SqlConnection connection = new SqlConnection(AddToBase.dataInfo)) //Добавление лицевых счетов в форму погашения кредита
             {
+                LScomboBox2.Items.Clear();
                 String sql = "SELECT id FROM issuance_of_credit";
                 SqlCommand command = new SqlCommand(sql, connection);
                 using (command)
@@ -268,6 +281,7 @@ namespace База_банка
             }
             using (SqlConnection connection = new SqlConnection(AddToBase.dataInfo))//Добавление типов кредитов
             {
+                CreditComboBox.Items.Clear();
                 String sql = "SELECT type_credit FROM credit_type";
                 SqlCommand command = new SqlCommand(sql, connection);
                 using (command)
